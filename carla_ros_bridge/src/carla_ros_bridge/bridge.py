@@ -11,9 +11,10 @@ from tf2_msgs.msg import TFMessage
 import rospy
 
 from carla.settings import CarlaSettings
-from carla_ros_bridge.control import InputController
+from carla_ros_bridge.apollo_control import ApolloInputController
 from carla_ros_bridge.markers import PlayerAgentHandler, NonPlayerAgentsHandler
 from carla_ros_bridge.sensors import CameraHandler, LidarHandler
+from std_msgs.msg import String
 
 
 class CarlaRosBridge(object):
@@ -33,10 +34,10 @@ class CarlaRosBridge(object):
         self.tf_to_publish = []
         self.msgs_to_publish = []
         self.publishers = {}
+        self.measurements = None
 
         # definitions useful for time
-        self.cur_time = rospy.Time.from_sec(
-            0)  # at the beginning of simulation
+        self.cur_time = rospy.Time.from_sec(0)  # at the beginning of simulation
         self.carla_game_stamp = 0
         self.carla_platform_stamp = 0
 
@@ -52,7 +53,7 @@ class CarlaRosBridge(object):
             self.add_sensor(name)
 
         # creating input controller listener
-        self.input_controller = InputController()
+        self.input_controller = ApolloInputController()
 
     def setup_carla_client(self, client, params):
         self.client = client
@@ -106,6 +107,9 @@ class CarlaRosBridge(object):
             if topic == 'tf':
                 self.publishers[topic] = rospy.Publisher(
                     topic, TFMessage, queue_size=100)
+            elif topic == 'player_vehicle':
+                self.publishers[topic] = rospy.Publisher(
+                    topic, String, queue_size=10)
             else:
                 self.publishers[topic] = rospy.Publisher(
                     topic, type(msg), queue_size=10)
@@ -118,7 +122,16 @@ class CarlaRosBridge(object):
 
     def send_msgs(self):
         for publisher, msg in self.msgs_to_publish:
-            publisher.publish(msg)
+            if publisher.name == '/player_vehicle':
+                msg_tmp = String()
+                msg_tmp.data = str(self.measurements.transform.location.x) + " " \
+                                + str(self.measurements.transform.location.y) + " " \
+                                + str(self.measurements.transform.location.z) + " " \
+                                + str(self.measurements.transform.rotation.yaw)
+                rospy.loginfo(str(self.measurements.transform.rotation))
+                publisher.publish(msg_tmp)
+            else:
+                publisher.publish(msg)
         self.msgs_to_publish = []
 
         tf_msg = TFMessage(self.tf_to_publish)
@@ -144,6 +157,7 @@ class CarlaRosBridge(object):
             if (frame == self.frames_per_episode) or rospy.is_shutdown():
                 break
             measurements, sensor_data = self.client.read_data()
+            self.measurements = measurements.player_measurements
 
             # handle time
             self.carla_game_stamp = measurements.game_timestamp
