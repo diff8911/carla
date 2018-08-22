@@ -14,7 +14,7 @@ USAGE_STRING="Usage: $0 [-h|--help] [--no-editor]"
 # -- Parse arguments -----------------------------------------------------------
 # ==============================================================================
 
-LAUNCH_UE4_EDITOR=true
+LAUNCH_UE4_EDITOR=false
 
 OPTS=`getopt -o h --long help,no-editor -n 'parse-options' -- "$@"`
 

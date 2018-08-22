@@ -79,6 +79,10 @@ void ACarlaVehicleController::Tick(float DeltaTime)
     CarlaPlayerState->CurrentGear = Vehicle->GetVehicleCurrentGear();
     CarlaPlayerState->SpeedLimit = GetSpeedLimit();
     CarlaPlayerState->TrafficLightState = GetTrafficLightState();
+
+    CarlaPlayerState->LinearVelocity = Vehicle->GetLinearVelocity();
+    CarlaPlayerState->AngularVelocity = Vehicle->GetAngularVelocity();
+
     IntersectPlayerWithRoadMap();
   }
 }

@@ -16,7 +16,6 @@ from carla_ros_bridge.markers import PlayerAgentHandler, NonPlayerAgentsHandler
 from carla_ros_bridge.sensors import CameraHandler, LidarHandler
 from std_msgs.msg import String
 
-
 class CarlaRosBridge(object):
     """
     Carla Ros bridge
@@ -123,12 +122,36 @@ class CarlaRosBridge(object):
     def send_msgs(self):
         for publisher, msg in self.msgs_to_publish:
             if publisher.name == '/player_vehicle':
+                '''
+                    [0] location.x
+                    [1] location.y
+                    [2] location.z
+                    [3] rotation.pitch
+                    [4] rotation.roll
+                    [5] rotation.yaw
+                    [6] angular_velocity.x
+                    [7] angular_velocity.y
+                    [8] angular_velocity.z
+                    [9] linear_velocity.x
+                    [10] linear_velocity.y
+                    [11] linear_velocity.z
+                '''
                 msg_tmp = String()
                 msg_tmp.data = str(self.measurements.transform.location.x) + " " \
                                 + str(self.measurements.transform.location.y) + " " \
                                 + str(self.measurements.transform.location.z) + " " \
-                                + str(self.measurements.transform.rotation.yaw)
-                rospy.loginfo(str(self.measurements.transform.rotation))
+                                + str(self.measurements.transform.rotation.pitch) + " " \
+                                + str(self.measurements.transform.rotation.roll) + " " \
+                                + str(self.measurements.transform.rotation.yaw) + " " \
+                                + str(self.measurements.angular_velocity.x) + " " \
+                                + str(self.measurements.angular_velocity.y) + " " \
+                                + str(self.measurements.angular_velocity.z) + " " \
+                                + str(self.measurements.linear_velocity.x) + " " \
+                                + str(self.measurements.linear_velocity.y) + " " \
+                                + str(self.measurements.linear_velocity.z) + " " \
+                                + str(self.measurements.acceleration.x) + " " \
+                                + str(self.measurements.acceleration.y) + " " \
+                                + str(self.measurements.acceleration.z)
                 publisher.publish(msg_tmp)
             else:
                 publisher.publish(msg)

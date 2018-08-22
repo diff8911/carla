@@ -46,6 +46,10 @@ void ACarlaPlayerState::CopyProperties(APlayerState *PlayerState)
       CollisionIntensityOther = Other->CollisionIntensityOther;
       OtherLaneIntersectionFactor = Other->OtherLaneIntersectionFactor;
       OffRoadIntersectionFactor = Other->OffRoadIntersectionFactor;
+
+      AngularVelocity = Other->AngularVelocity;
+      LinearVelocity = Other->LinearVelocity;
+      
       UE_LOG(LogCarla, Log, TEXT("Copied properties of ACarlaPlayerState"));
     }
   }

@@ -10,6 +10,8 @@
 
 #include "Traffic/TrafficLightState.h"
 
+#include <iostream>
+
 #include "CarlaPlayerState.generated.h"
 
 /// Current state of the player, updated every frame by ACarlaVehicleController.
@@ -109,6 +111,16 @@ public:
   const FVector &GetAcceleration() const
   {
     return Acceleration;
+  }
+
+  UFUNCTION(BlueprintCallable)
+  const FVector &GetAngularVelocity() const {
+    return AngularVelocity;
+  }
+
+  UFUNCTION(BlueprintCallable)
+  const FVector &GetLinearVelocity() const {
+    return LinearVelocity;
   }
 
   /// @}
@@ -287,4 +299,10 @@ private:
 
   UPROPERTY(VisibleAnywhere)
   float OffRoadIntersectionFactor = 0.0f;
+
+  UPROPERTY(VisibleAnywhere)
+  FVector AngularVelocity;
+
+  UPROPERTY(VisibleAnywhere)
+  FVector LinearVelocity;
 };

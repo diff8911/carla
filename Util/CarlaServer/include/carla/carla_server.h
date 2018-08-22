@@ -184,6 +184,9 @@ extern "C" {
     float intersection_offroad;
     /** Vehicle's AI control that would apply this frame. */
     struct carla_control autopilot_control;
+
+    struct carla_vector3d angular_velocity;
+    struct carla_vector3d linear_velocity;
   };
 
   /* ======================================================================== */

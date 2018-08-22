@@ -172,6 +172,9 @@ namespace server {
     player->set_intersection_otherlane(values.player_measurements.intersection_otherlane);
     player->set_intersection_offroad(values.player_measurements.intersection_offroad);
     Set(player->mutable_autopilot_control(), values.player_measurements.autopilot_control);
+    
+    Set(player->mutable_angular_velocity(), values.player_measurements.angular_velocity);
+    Set(player->mutable_linear_velocity(), values.player_measurements.linear_velocity);
     // Non-player agents.
     message->clear_non_player_agents(); // we need to clear as we cache the message.
     for (auto &agent : agents(values)) {

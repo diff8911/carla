@@ -132,7 +132,7 @@ message Measurements {
   message PlayerMeasurements {
     Transform transform = 1;
 
-    BoundingBox bounding_box = 12;
+    BoundingBox bounding_box = 2;
 
     Vector3D acceleration = 3;
     float forward_speed = 4;
@@ -145,6 +145,9 @@ message Measurements {
     float intersection_offroad = 9;
 
     Control autopilot_control = 10;
+
+    Vector3D angular_velocity = 11;
+    Vector3D linear_velocity = 12;
   }
 
   uint64 frame_number = 5;

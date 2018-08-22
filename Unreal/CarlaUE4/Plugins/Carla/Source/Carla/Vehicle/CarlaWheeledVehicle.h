@@ -13,6 +13,8 @@
 
 #include "CoreMinimal.h"
 
+#include "PxPhysicsAPI.h"
+
 #include "CarlaWheeledVehicle.generated.h"
 
 class UBoxComponent;
@@ -79,6 +81,11 @@ public:
   /// Get the maximum angle at which the front wheel can steer.
   UFUNCTION(Category = "CARLA Wheeled Vehicle", BlueprintCallable)
   float GetMaximumSteerAngle() const;
+  
+  // physx::PxVehicleWheels* GetPxVehicle();
+
+  FVector GetAngularVelocity();
+  FVector GetLinearVelocity();
 
   /// @}
   // ===========================================================================

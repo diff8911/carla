@@ -70,6 +70,20 @@ float ACarlaWheeledVehicle::GetMaximumSteerAngle() const
   return FrontWheel->SteerAngle;
 }
 
+// physx::PxVehicleWheels* ACarlaWheeledVehicle::GetPxVehicle() {
+//   return GetVehicleMovementComponent()->PVehicle;
+// }
+
+FVector ACarlaWheeledVehicle::GetAngularVelocity() {
+  physx::PxVec3 pxVec = GetVehicleMovementComponent()->PVehicle->getRigidDynamicActor()->getAngularVelocity();
+  return {pxVec.x, pxVec.y, pxVec.z};
+}
+
+FVector ACarlaWheeledVehicle::GetLinearVelocity() {
+  physx::PxVec3 pxVec = GetVehicleMovementComponent()->PVehicle->getRigidDynamicActor()->getLinearVelocity();
+  return {pxVec.x, pxVec.y, pxVec.z};
+}
+
 // =============================================================================
 // -- Set functions ------------------------------------------------------------
 // =============================================================================

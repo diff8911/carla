@@ -10,8 +10,8 @@ from std_msgs.msg import String
 
 class ApolloInputController(object):
 
-    def __init__(self, topic_name='/apollo_control'):
-        # current control co mmand
+    def __init__(self, topic_name='/carla_control'):
+        # current control command
         self.cur_control = {
             'steer': 0.0,
             'throttle': 0.0,
@@ -21,20 +21,16 @@ class ApolloInputController(object):
         }
 
         self.cmd_vel_subscriber = rospy.Subscriber(
-            '/apollo_control', String, self.set_control_cmd_callback)
+            topic_name, String, self.set_control_cmd_callback)
 
     def set_control_cmd_callback(self, data):
         '''
             [0] steering
             [1] throttle
             [2] brake
-            [3] hand_brake
-            [4] reverse
         '''
         arr = data.data.split()
 
-        self.cur_control['steer'] = float(arr[0])
-        self.cur_control['throttle'] = float(arr[1])
-        self.cur_control['brake'] = float(arr[2])
-        self.cur_control['hand_brake'] = arr[3] == 'True'
-        self.cur_control['reverse'] = arr[4] == 'True'
+        self.cur_control['steer'] = -float(arr[0]) / 100.0
+        self.cur_control['throttle'] = float(arr[1]) / 100.0 # TODO: Car is too slow.
+        self.cur_control['brake'] = float(arr[2]) / 100.0
