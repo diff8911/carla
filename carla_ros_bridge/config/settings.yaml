@@ -4,35 +4,35 @@ carla:
   QualityLevel: Low  # Low or Epic
   SynchronousMode: True
   SendNonPlayerAgentsInfo: True
-  NumberOfVehicles: 0
-  NumberOfPedestrians: 0
+  NumberOfVehicles: 10
+  NumberOfPedestrians: 20
   WeatherId: 1
   Framesperepisode: -1 # -1: run episode indefinitely until interrupted
   Episodes: 2
 
   sensors:
-    camera_long:
-      SensorType: CAMERA
-      carla_settings:
-        PostProcessing: SceneFinal
-        ImageSizeX: 320
-        ImageSizeY: 240
-        FOV: 120
-        PositionX: 1.50
-        PositionY: 0
-        PositionZ: 1.60
-        RotationPitch: 0
-        RotationRoll: 0
-        RotationYaw: 0
+  #   camera_long:
+  #     SensorType: CAMERA
+  #     carla_settings:
+  #       PostProcessing: SceneFinal
+  #       ImageSizeX: 320
+  #       ImageSizeY: 240
+  #       FOV: 120
+  #       PositionX: 1.50
+  #       PositionY: 0
+  #       PositionZ: 1.60
+  #       RotationPitch: 0
+  #       RotationRoll: 0
+  #       RotationYaw: 0
 
-    camera_short:
+    camera_front:
       SensorType: CAMERA
       carla_settings:
         PostProcessing: SceneFinal
-        ImageSizeX: 320
-        ImageSizeY: 240
+        ImageSizeX: 1080
+        ImageSizeY: 720
         FOV: 90
-        PositionX: 1.50
+        PositionX: 1.80
         PositionY: 0
         PositionZ: 1.30
         RotationPitch: 0
