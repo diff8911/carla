@@ -135,6 +135,10 @@ class CarlaRosBridge(object):
                     [9] linear_velocity.x
                     [10] linear_velocity.y
                     [11] linear_velocity.z
+                    [12] acceleration.x
+                    [13] acceleration.y
+                    [14] acceleration.z
+                    [15] forward_speed
                 '''
                 msg_tmp = String()
                 msg_tmp.data = str(self.measurements.transform.location.x) + " " \
