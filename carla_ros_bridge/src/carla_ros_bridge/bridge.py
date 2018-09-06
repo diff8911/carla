@@ -151,7 +151,8 @@ class CarlaRosBridge(object):
                                 + str(self.measurements.linear_velocity.z) + " " \
                                 + str(self.measurements.acceleration.x) + " " \
                                 + str(self.measurements.acceleration.y) + " " \
-                                + str(self.measurements.acceleration.z)
+                                + str(self.measurements.acceleration.z) + " " \
+                                + str(self.measurements.forward_speed)
                 publisher.publish(msg_tmp)
             else:
                 publisher.publish(msg)
